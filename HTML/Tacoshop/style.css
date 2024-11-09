@@ -1,0 +1,66 @@
+
+html {
+    font-size: 20px;
+}
+
+body {
+    min-height: 100vh;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+    border-left: 3px solid #333;
+    border-right: 3px solid #333;
+}
+
+th, td, caption, tfoot {
+    font-family: 'Courier New', Courier, monospace;
+    border-collapse: separate;
+    padding: 0.5rem;
+}
+
+th, td{
+    border: 1px solid #333;
+}
+
+tfoot td {
+    font-weight: bold; /* Optioneel: maak de tekst vet voor meer nadruk */
+    border: 3px solid #d2691e !important;
+}
+
+
+table caption {
+    border: 3px solid #d2691e !important;
+
+}
+
+
+#taco_Emoji_emphasized{
+    font-size: xx-large;
+}
+
+.summary-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #d2691e; /* Een warme bruine kleur */
+    margin-bottom: 10px;
+    cursor: pointer; /* Geeft een handje bij hover, passend bij een interactieve summary */
+}
+
+.trivia-text {
+    font-size: 1em;
+    line-height: 1.5;
+    margin-top: 10px;
+    color: #333;
+}
+
+.highlighted-time {
+    background-color: #ffeb3b; /* Geel voor de nadruk */
+    padding: 0 5px;
+    border-radius: 5px;
+    color: #000;
+    font-weight: bold;
+}
+
+.extra-strong{
+    font-style: oblique;
+}
