@@ -76,7 +76,7 @@ body {
 }
 
 .btn--lean {
-  transform: skewX(-10deg);
+  transform: skewX(-1eg);
 }
 
 .btn--border-lg {
