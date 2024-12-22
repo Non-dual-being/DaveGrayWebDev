@@ -132,3 +132,24 @@ const logStudentKey = (student: Student2, key: keyof Student2): void => {
 }
 
 logStudentKey(student, 'GPA');
+
+
+type Streams = 'salary' | 'bonus' | 'sidehistle'
+type Incomes = Record<Streams, number> 
+
+//record is of format Record<K, T> K are the keys, 
+// in this example the union type streams
+//Record does not allow to add key values here or to defined type for a speciic key
+
+const Payment: Incomes = {
+    salary: 5,
+    bonus: 10,
+    sidehistle: 3
+
+}
+
+for (const key in Payment) {
+    console.log(`${key} : ${Payment[key as keyof Incomes]}`)
+}
+
+
