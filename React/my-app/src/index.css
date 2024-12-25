@@ -1,13 +1,201 @@
-body {
+
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+
+  /*
+  default is content-box
+  *border-box zorgt ervoor dat padding en border bij de dimensies van het element worden bij gerekend 
+  * global selector is ook van toepassing op pseudo elementen 
+  
+  */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  font-size: 22px;
 }
+
+body {
+  min-height: 100vh;
+  font-family: 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased; /* Voor Chrome en Safari */
+  -moz-osx-font-smoothing: grayscale; /* Voor Firefox op macOS */
+
+}
+
+/* CSS Uitleg */
+
+/* -webkit-font-smoothing: antialiased;
+   -----------------------------------
+   Dit is een eigenschap specifiek voor WebKit-gebaseerde browsers zoals Chrome en Safari.
+   Het zorgt ervoor dat fonts er scherper uitzien door anti-aliasing toe te passen.
+   Dit betekent dat de randen van letters soepeler worden weergegeven, wat de leesbaarheid kan verbeteren. */
+
+
+/* -moz-osx-font-smoothing: grayscale;
+   ------------------------------------
+   Deze eigenschap is specifiek voor Firefox op macOS.
+   Het dwingt het systeem om de tekstweergave in grijstinten te renderen in plaats van subpixel anti-aliasing.
+   Dit kan nuttig zijn als je tekst een consistent uiterlijk wilt geven op macOS. */
+
+
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-width: 500px;
+  border: 1px solid mediumblue;
+  margin: auto
+}
+
+/* margin: auto;
+   ------------
+   - Wanneer je 'margin: auto;' gebruikt, probeert de browser de marges aan
+     de linker- en rechterkant (of boven en onder, afhankelijk van de context)
+     automatisch gelijk te verdelen.
+   - Het wordt vooral gebruikt om elementen **horizontaal te centreren** in hun container,
+     zolang het element een vaste breedte heeft.
+
+   Werking:
+   1. Als het element een vaste breedte heeft, verdeelt 'margin: auto;'
+      de beschikbare ruimte gelijk aan beide zijden.
+   2. Het werkt niet bij elementen zonder een vaste breedte (bijv. 'width: auto').
+
+   Toepassing:
+   - Veel gebruikt voor het centreren van blokken zoals <div>, <header>, enz.
+   - Combineer het vaak met 'display: block' als je inline-elementen wilt centreren.
+
+   /* margin: auto; in een flex-container:
+   -------------------------------------
+   - De eigenschap 'margin: auto;' centreert het specifieke element
+     door de overgebleven ruimte in de container gelijk te verdelen.
+   - Werking in een flex-container:
+     - Horizontaal (x-as): Verdeelt ruimte aan de linker- en rechterkant.
+     - Verticaal (y-as): Verdeelt ruimte boven en onder (indien mogelijk).
+   - 'margin: auto;' kan de standaard uitlijning door 'align-items' 
+     en 'justify-content' overschrijven voor een specifiek element.
+
+   Specifiek in dit geval:
+   ------------------------
+   - De flex-container (.App) wordt met 'margin: auto;' gecentreerd
+     in de viewport (x-as).
+   - 'justify-content: center;' en 'align-items: center;' zorgen 
+     voor het centreren van de inhoud binnen de container.
+*/
+
+header {
+  width: 100%;
+  padding: 0 0.25em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+header h1 {
+  text-align: center;
+}
+
+/* CSS Uitleg */
+
+/* padding: 0 0.25em;
+   ------------------
+   - Dit is een shorthand-syntaxis voor padding.
+     De volgorde is:
+     [top] [right] [bottom] [left].
+
+   - In dit geval:
+     - Top (boven): 0
+     - Bottom (onder): 0
+     - Left (links): 0.25em
+     - Right (rechts): 0.25em
+
+   Wat betekent 'em'?
+   -------------------
+   - 'em' is een relatieve eenheid die gebaseerd is op de 'font-size'
+     van het element zelf.
+     Bijvoorbeeld:
+     - Als 'font-size' = 16px, dan:
+       - 1em = 16px
+       - 0.25em = 4px
+   - De padding verandert dynamisch als de 'font-size' verandert.
+
+   Samenvatting:
+   - Top en bottom hebben geen padding (0).
+   - Left en right hebben een padding van 0.25em, wat gelijk is aan
+     4px als de 'font-size' van het element 16px is.
+*/
+
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+/* Uitleg van flex-grow: 1;
+   -------------------------
+   - 'flex-grow' bepaalt hoe een flex-item groeit om beschikbare ruimte in te nemen.
+   - Bij 'flex-grow: 1;' groeit het element om zoveel mogelijk van de resterende ruimte in de parentcontainer in te nemen.
+   - Het werkt alleen als de flex-container extra ruimte heeft. */
+
+/* Uitleg van overflow-y: auto;
+   ----------------------------
+   - 'overflow-y' regelt wat er gebeurt als de inhoud van een element groter is dan de beschikbare hoogte.
+   - Bij 'auto' wordt er een verticale scrollbar toegevoegd als dat nodig is.
+   - Zonder te veel inhoud blijft de scrollbar verborgen. */
+
+
+   footer {
+    width: 100%;
+    padding: 0.25em;
+    background-color: mediumblue;
+    color: aliceblue;
+    display: grid;
+    place-content: center;
+  }
+
+  button {
+    background-color: brown;
+    color: #fff;
+    padding: 1em;
+    border: 4px solid #22333b;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 700;
+    margin: 0.5rem auto;
+    transition: background-color 0.2s ease-in-out;
+    box-sizing: border-box; 
+  }
+  button:hover {
+    background-color: #adc178;
+    border: 1px solid #22333b;
+  }
+  
+  .counter {
+    background-color: brown;
+    border-radius: 20px;
+    border: 5px solid  #22333b;
+    color: whitesmoke;
+    padding: 1rem;
+    transition: background-color 0.3s ease;
+
+    
+  }
+  .counter:hover {
+    background-color:  #22333b;
+    transform: scale(1.05);
+ 
+  }
