@@ -7,11 +7,7 @@ import { useState } from 'react';
 const ShoppingContent = () => {
   
 
-  const ShoppingContentStyling = {
-    listStyleType: "none",
-    padding: 0
-    
-  }
+
   const RandomNameH3Styling = {
     backgroundColor: theme.colors.primary,
         color: theme.colors.text,
