@@ -1,6 +1,6 @@
 
 import Header from './Header';
-import ShoppingContent from './ShoppingContent';
+import ShoppingContentList from './ShoppingContentList.js';
 import Footer from './Footer';
 import './index.css'
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Header></Header>
-      <ShoppingContent></ShoppingContent>
+      <ShoppingContentList></ShoppingContentList>
       <Footer></Footer>
     </div>
   );
