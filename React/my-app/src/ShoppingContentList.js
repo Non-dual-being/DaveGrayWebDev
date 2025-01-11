@@ -1,94 +1,30 @@
-import React, { useState } from 'react';
-import { FaTrashAlt } from 'react-icons/fa';
+import React from 'react';
+import ItemList from './ItemList';
 
-const ShoppingContentList = () => {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      checked: false,
-      item: "One half pound bag of Cocoa Covered Almonds Unsalted"
+const ShoppingContentList = ({items, handleCheck, handleCheck_impartive, handleDelete}) => {
 
-    },
-
-    {
-      id: 2,
-      checked: false,
-      item: "Olliebollen"
-    },
-
-    {
-      id: 3,
-      checked: false,
-      item: "Foufke"
-    }
+  const empyListPStyling = {
+    marginTop: '2rem',
+    backgroundColor: '#9c27b0',
+    borderRadius: '5px',
+    padding: '0.5rem',
+    color: 'white',
+    border: '1px solid #f5f5f5'
+  };  
 
 
-  ]);
-
-  /**declaratieve manier van schrijven, je scrijf wat je wilt zien */
-
-  const handleCheck = (id) => {
-    const listItems = items.map((item) => item.id === id ? {...item, checked: !item.checked } : item)
-
-    setItems(listItems);
-    localStorage.setItem('shoppinglist', JSON.stringify(listItems));
-
-
-     
-  }
-/**wat meer impartief, dus lijn voor lijn manier van schrijf zou als volgt zijn  */
-
-const handleCheck_impartive = (id) => {
-  setItems((prevItems) => {
-    const updateItems = [...prevItems]; //list of items which are objects
-
-    const index = updateItems.findIndex((item) => item.id === id);
-
-    if (index !== -1) {
-      updateItems[index] = {
-        ...updateItems[index],
-        checked: !updateItems[index].checked
-
-      };
-    }
-
-    return updateItems; //this within the setItems
-
-  })
-}
-
-const handleDelete = (id) => {
-  const listItems = items.filter(item => item.id !== id)
-  setItems(listItems);
-    localStorage.setItem('shoppinglist', JSON.stringify(listItems));
-
-}
-  
-  
   return (
     <main>
-      <ul>
-        {items.map((item) => (
-          <li className="item" key={item.id}>
-            <input 
-              type="checkbox"
-              checked={item.checked}
-              onChange={() => {typeof(handleCheck) === "function" ? handleCheck(item.id) : handleCheck_impartive(item.id)}} /**voor je klikt is het hier tijdens de eerste render al ingesteld op handlecheck(1, 2 of 3) */
-              >
-              </input>
-              <label
-                style={(item.checked) ? { textDecoration: 'line-through'} : {fontWeight: 'bold'} }
-                onDoubleClick={()=>{typeof(handleCheck) === "function" ? handleCheck(item.id) : handleCheck_impartive(item.id)}}
-
-              >{item.item}</label>
-              <FaTrashAlt 
-                onClick={() => {handleDelete(item.id)}}
-                role='button' 
-                tabIndex='0' //focus volgorde in de dom via tab (0 is regulier)
-              />
-          </li>
-        ))}
-      </ul>
+      {items.length ? (
+        <ItemList
+          items = {items}
+          handleCheck={handleCheck}
+          handleDelete={handleDelete}
+          handleCheck_impartive={handleCheck_impartive}
+        />
+        ) : (
+          <p style = {empyListPStyling}>You have an empty list</p>
+        )}
     </main>
   )
 }

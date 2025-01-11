@@ -140,7 +140,7 @@ main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
 }
@@ -168,20 +168,19 @@ main {
   }
 
   button {
-    background-color: brown;
-    color: #fff;
-    padding: 1em;
-    border: 4px solid #22333b;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: aliceblue;
+    color: mediumblue;
     cursor: pointer;
-    border-radius: 10px;
-    font-weight: 700;
-    margin: 0.5rem auto;
-    transition: background-color 0.2s ease-in-out;
-    box-sizing: border-box; 
   }
-  button:hover {
-    background-color: #adc178;
-    border: 1px solid #22333b;
+  button:hover, button:focus {
+    color: white;
+    background-color: limegreen;
+    outline: none;
   }
   
   .counter {
@@ -203,7 +202,7 @@ main {
 
 footer {
   width: 100%;
-  padding: 0.25em;
+  padding: 0.25rem;
   background-color: mediumblue;
   color: aliceblue;
   display: grid;
@@ -272,3 +271,48 @@ ul li::before {
 .item svg:active {
   transform: scale(1.1);
 }
+
+.itemslistcount {
+  font-weight: bold;
+  padding: 0.1rem;
+
+}
+.itemslistcount:hover {
+  color:  red;
+  transform: translate(1.01);
+  cursor: pointer;
+}
+
+.addForm{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.5rem 0;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.addForm label{
+   position: absolute;
+   left: -100000px;
+}
+
+.addForm input[type='text'] {
+  flex-grow: 1;
+  max-width: calc(100%-50px);
+  min-height: 48px;
+  padding: 0.25rem;
+  outline: none;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+
+}
+.addForm input[type='text']:hover {
+  background-color: #eee;
+  border: 2px solid limegreen;
+
+}
+
+
+
