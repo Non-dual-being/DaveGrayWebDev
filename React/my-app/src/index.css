@@ -311,8 +311,56 @@ ul li::before {
 .addForm input[type='text']:hover {
   background-color: #eee;
   border: 2px solid limegreen;
-
 }
+
+.searchForm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0.1rem auto 0.1rem;
+  /*top r/l bottom*/
+  padding: 0.3rem 0.25rem 0.3rem;
+  /*top  right and left bottm*/
+  border-bottom: 1px solid #eee;
+  position: relative;
+  background-color: gray;
+}
+
+.searchForm label {
+  position: absolute;
+  left: -10000000000px;
+  /*screenreader*/
+}
+
+.searchForm input[type='text']{
+  flex-grow: 1;
+  max-width: 100%;
+  min-height: 48px;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  outline: none; 
+  padding-left: 5px;
+  /*standaard omlijnen vd browser weghalen*/
+}
+
+.searchForm input[type='text']:hover{
+  border: 1px solid #333;
+  transform: translateY(0.5);
+  outline: none; 
+  box-shadow: inset 1px 1px 3px rgb(168, 168, 168);
+  
+  /*standaard omlijnen vd browser weghalen*/
+}
+
+.searchForm input[type='text']:focus{
+  border: 2px solid #333;
+
+  /*standaard omlijnen vd browser weghalen*/
+}
+
+
+
 
 
 

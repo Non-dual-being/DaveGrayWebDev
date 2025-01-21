@@ -1,8 +1,9 @@
 import React from 'react';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaUniregistry } from 'react-icons/fa';
+import { useRef} from 'react';
 
 const AddItem = ({handleSubmit, newItem, setNewItem}) => {
-
+  const inputRef = useRef();
   // de {} is syntatische weergaven van destructuring van het props obect wat react doorgeeft
   return (
     <form 
@@ -25,6 +26,7 @@ const AddItem = ({handleSubmit, newItem, setNewItem}) => {
             required 
             value={newItem}
             onChange={(e) => setNewItem(e.target.value)}   
+            ref = {inputRef}
             /**
              * Additem ontvangt via de parent de useState
              * Deze gebruikt additem om bij verandering via useState setitem door te geven aan de parent
@@ -36,6 +38,7 @@ const AddItem = ({handleSubmit, newItem, setNewItem}) => {
         <button
             type="submit"
             aria-label='Add item'
+            onClick= {() => inputRef.current.focus()}
         >
             <FaPlus  />
         </button>
@@ -44,3 +47,5 @@ const AddItem = ({handleSubmit, newItem, setNewItem}) => {
 }
 
 export default AddItem
+
+/**the inputref simple put back the focus to the current element, which is the element where the inputref is situated */
