@@ -359,6 +359,15 @@ ul li::before {
   /*standaard omlijnen vd browser weghalen*/
 }
 
+.fetchError{
+  color: red;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  width: 60%;
+  border: 2px solid red;
+  background-color: lightgray;
+}
 
 
 

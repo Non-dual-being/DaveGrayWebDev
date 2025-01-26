@@ -7,16 +7,19 @@ import { useState } from 'react';
 import Footer from './Footer';
 import './index.css'
 import React from 'react';
+import apiRequest from './apiRequest.js';
 
 
 
 function App() {
-  
+  const API_URL = 'http://localhost:3500/items';
+
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [fetchError, setFetchError] = useState(null);
+  const [isLoading, setIsloading] = useState(true);
     
-
     /**declaratieve manier van schrijven, je scrijf wat je wilt zien */
   
   const handleCheck = (id) => {
@@ -56,48 +59,89 @@ function App() {
   
   }
 
-  const handleSubmit = (e) => {
+  //async becauze of the fetch api
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newItem) return;
+    
+    let newID;
+    if (items && items.length){
+      newID = Math.max(...items.map(item => item.id)) + 1;
+    } else { newID = 1};
+
+    const newItemToSever = {
+      id: newID,
+      checked: false,
+      item: newItem
+    }
 
     setItems((prevItems) => {
-      const addNewItems = [...prevItems];
-      let newId;
-      if (addNewItems && addNewItems.length){
-        newId = Math.max(...addNewItems.map(item => item.id)) + 1} else { newId = 1} //spread operator nodig, Math.max werkt niet op een array
-      
-
-      addNewItems.push(
-        {
-          id: newId,
-          checked: false,
-          item: newItem
-
-        }
-      )
+      const addNewItems = [...prevItems, newItemToSever];
       localStorage.setItem('shoppinglist', JSON.stringify(addNewItems));
       return addNewItems;
+    });
 
-    })
     setNewItem('');
+ 
+    /**updating the api items in the server  */
+    const postOptions = {
+      method: "POST",
+      headers: {
+        'Content-Type' : 'application/json' 
+      },
+      body: JSON.stringify(newItemToSever)
+    }
+    const result = await apiRequest(API_URL, postOptions);
+
+    //there wil be a result if a error message showed up in the catch block
+    if (result) {setFetchError(result)};
   }
 
-    React.useEffect(() => {
-      const mylocalItems = localStorage.getItem('shoppinglist')
-      if (mylocalItems){
-      setItems(()=>{  
-        return JSON.parse(mylocalItems);
-      });}
-      else {
-        setItems([]);
+  React.useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw Error('Did not receive expected Data');
+        const listItems = await response.json();
+        console.log(listItems);
+        setItems(listItems);
+        setFetchError(null);
+      } catch (e) {
+        setFetchError(e.message);
+
+      } finally {
+        setIsloading(false);
       }
-    }, []) 
+    }
+    //simulating a api fetch, but is a local server
+    setTimeout(() => {
+      (async () => await fetchItems ())();
+    }, 1000)
+   
+
+  }, []);
+
+
+  /**
+   * IIFFE Immediately Invoked Function Expression 
+   * (async () => {}())
+   * Wordt ingezet waar het normaal gezien niet mogelijk is (react use effect kan niet als async gebruikt worden)
+   * In deze context is het niet nodig.
+   */
+
+
+
 
     /*
 Voordelen van het gebruik van useEffect om localStorage-data te laden:
 1. Separation of Concerns: Houd useState schoon en richt je alleen op standaardwaarden.
 2. Asynchroniciteit: Voorkomt directe afhankelijkheid van browser-specifieke API's bij initialisatie.
 3. Veilige initiële rendering: Vermijdt problemen met server-side rendering of testomgevingen.
+4. UseEffect met een empty array render de functie 1 keer als het is opgestart (compomentDidMount) 
+5. Zonder array na elke render: componentDIDUpdate
+6. Useffect is async in the fact that it renders everythin else renders
+
 */
 
   
@@ -117,16 +161,21 @@ return (
       setSearchInput = {setSearchInput}
     > 
     </SearchItem>
-    <ShoppingContentList
-      items = {items.filter(
-        item => ((item.item).toLowerCase().includes(searchInput.toLocaleLowerCase()))
-      )}
-      handleCheck = {handleCheck}
-      handleCheck_impartive = {handleCheck_impartive}
-      handleDelete = {handleDelete}
-      /**this props drilling allows for this function the be passed trough other components */
-    >
-    </ShoppingContentList>
+    <main>
+      {fetchError ? <p className="fetchError">{`Error: ${fetchError}`}</p> :
+      <ShoppingContentList
+        items = {items.filter(
+          item => ((item.item).toLowerCase().includes(searchInput.toLocaleLowerCase()))
+        )}
+        handleCheck = {handleCheck}
+        handleCheck_impartive = {handleCheck_impartive}
+        handleDelete = {handleDelete}
+        isLoading = {isLoading}
+        searchInput = {searchInput}
+        /**this props drilling allows for this function the be passed trough other components */
+      >
+      </ShoppingContentList> }
+    </main>
     <Footer length = {items.length}>  
       
     </Footer>

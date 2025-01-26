@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemList from './ItemList';
 
-const ShoppingContentList = ({items, handleCheck, handleCheck_impartive, handleDelete}) => {
+const ShoppingContentList = ({items, handleCheck, handleCheck_impartive, handleDelete, isLoading, searchInput}) => {
 
   const empyListPStyling = {
     marginTop: '2rem',
@@ -14,7 +14,7 @@ const ShoppingContentList = ({items, handleCheck, handleCheck_impartive, handleD
 
 
   return (
-    <main>
+    <>
       {items.length ? (
         <ItemList
           items = {items}
@@ -23,16 +23,18 @@ const ShoppingContentList = ({items, handleCheck, handleCheck_impartive, handleD
           handleCheck_impartive={handleCheck_impartive}
         />
         ) : (
-          <p style = {empyListPStyling}>You have an empty list</p>
+          <p style = {empyListPStyling}>{isLoading ? "items are loading ..." : searchInput.length ? "no matching results" : "You have a empty list"}</p>
         )}
-    </main>
+    </>
   )
 }
 
 export default ShoppingContentList
 
 
-
+/**
+ * <> </> fragment syntax is needed for a correct html return trough jsx as a parent container
+ */
 
     /*
  * Wat is `localStorage`?
