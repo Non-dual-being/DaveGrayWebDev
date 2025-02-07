@@ -1,30 +1,29 @@
 import React from 'react'
 
-const FetchAPI = async ({url = null, optionObj = null, errMSG = null}) => {
-  if (optionObj && optionObj.body){
-    try {
-        JSON.parse(optionObj.body)
-
-    } catch (e) {
-        return "invalid json"
-
-    }
+const FetchAPI = async (url = null, bodyObj = null) => {
+  if (!url || !typeof url=== 'string' || !url.length){
+    return {'success' : false, 'error': 'no url provided'}
   }
 
-  if (url) {
-    try {
-        const response = await fetch (url, optionObj);
-        if (!response.ok){
-            const errorMessage = `Error: ${response.status}  ${response.statusText}`;
-            throw new Error(errorMessage);
-        }
-
-    } catch (e) {
-        return e.message
-
+  if (!bodyObj || typeof bodyObj !== 'object' || Object.hasOwn(bodyObj, 'method') || Object.hasOwn(bodyObj, 'body')){
+    return{'success' : false, 'error': 'no valid fetch arguments'}
+  }
+  try {
+    const response = await fetch(url, bodyObj);
+    if (!response.ok){
+      return { success: false , error: `Error: ${response.status} ${response.statusText}`};
     }
 
-  } else return "no url was given"
+    try {
+      const responseJSON = await response.json();
+      return {'success' : true, 'response' : responseJSON};
+    } catch {
+      return {'success' : false, 'error' : 'ongeldige response'};
+    }
+
+  }catch (e) {
+    return {'success' : false, 'error' : 'ongeldige response'}
+  }
 }
 
 export default FetchAPI

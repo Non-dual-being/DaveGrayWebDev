@@ -13,6 +13,7 @@
   --neutral-dark: #212121; /* Diep donkergrijs */
   --background-white: #dddd;
   --font-size-responsive: clamp(0.9rem, 1vw + 0.2rem, 1.2rem);
+  --font-color-Error: rgb(217, 49, 52);
 
 }
 
@@ -91,5 +92,14 @@ ul {
 li:hover{
   background-color:rgba(255, 255, 255, 0.1);
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
+}
+
+.ErrorPara {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #333;
+  color: var(--font-color-Error);
 }
 

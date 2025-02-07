@@ -1,6 +1,8 @@
 import Header from './Header.js'
 import { useState } from 'react';
 import { useEffect } from 'react';
+import FetchAPI from './FetchAPI.js';
+import { JSONList } from './JSONlist.js'
 
 function App() {
   const [headerItems, setHeaderItems] = useState([
@@ -95,6 +97,10 @@ const displayJSON = async() => {
 
 useEffect(() => {
   handleChangeOfRequest();
+}, [])
+
+useEffect(() => {
+  handleChangeOfRequest();
 
 }, [headerItems])
 
@@ -121,6 +127,13 @@ useEffect(() => {
         headerItems = {headerItems}
         handlenavlinks={handlenavlinks}
       />
+      <main>
+        {fetchError} ?  ( <p class = "ErrorPara">{fetchError}</p> ) : 
+        (
+          <JSONList JSONObjList = {jsonList} />
+        )
+      </main>
+      
     </div>
   );
 }
